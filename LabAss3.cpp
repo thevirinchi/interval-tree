@@ -113,7 +113,17 @@ interval* overlap(node* root, interval range){
   return overlap(root->right, range);
 }
 
+void inorder(node* root){
+  if(root == NULL)
+    return;
+  inorder(root->left);
+  cout << " {" << root->i->l << ", " << root->i->h << "} ";
+  inorder(root->right);
+  return;
+}
+
 void oneAns(){
+  cout << "Searching for target range..." << endl;
   interval ranges[] = {{0,9}, {10,19}, {20, 29}, {30, 39}, {40, 49}};
   node* root = NULL;
   int n = sizeof(ranges)/sizeof(ranges[0]);
@@ -122,6 +132,8 @@ void oneAns(){
   interval target={6,25};
   interval *container = overlap(root, target);
   cout << "Interval containing the target range {" << target.l << ", " << target.h << "} is : {" << container->l << ", " << container->h << "}." << endl;
+  cout << endl << "Inorder traversal of the Interval Tree: ";
+  inorder(root);
   return;
 }
 

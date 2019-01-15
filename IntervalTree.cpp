@@ -50,10 +50,13 @@ interval* overlap(node* root, interval range){
 }
 
 int main(){
-  int ranges[] = {{0,9}, {10,19}, {20, 29}, {30, 39}, {40, 49}};
+  interval ranges[] = {{0,9}, {10,19}, {20, 29}, {30, 39}, {40, 49}};
   node* root = NULL;
   int n = sizeof(ranges)/sizeof(ranges[0]);
   for(int i = 0; i<n; i++)
     root = insert(root, ranges[i]);
+  interval target={6,25};
+  interval *container = overlap(root, target);
+  cout << container->l << endl << container->h << endl;
   return 0;
 }

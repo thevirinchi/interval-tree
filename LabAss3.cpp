@@ -96,9 +96,21 @@ node* insert(node* root, interval range){
   return root;
 }
 
+/* todo: Store all the intervals here */
+
+static int count = 0;
+interval* arr[INT_MAX] = {};
+
+void ranges(interval temp, int flag){
+  static int count = 0;
+  interval*
+}
+
 bool doOverlap(interval range1, interval range2){
-  if(range1.l <= range2.h && range2.l <= range1.h)
-    return true;
+  if(range1.l <= range2.h && range2.l <= range1.h){
+      ranges(range1,0);
+      return true;
+  }
   return false;
 }
 
@@ -119,7 +131,6 @@ void inorder(node* root){
   inorder(root->left);
   cout << " {" << root->i->l << ", " << root->i->h << "} ";
   inorder(root->right);
-  return;
 }
 
 void oneAns(){

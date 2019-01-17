@@ -122,12 +122,44 @@ void inorder(node* root){
 }
 
 void oneAns(){
-  cout << "Searching for target range..." << endl;
-  interval ranges[] = {{0,9}, {10,19}, {20, 29}, {30, 39}, {40, 49}};
+  interval ranges[] = {{17,19}, {21,24}, {30, 35}, {5, 8}, {20, 30}, {4, 8}, {24, 27}, {15, 18}, {16, 20}, {7, 10}, {28, 29}, {6, 7}};
   node* root = NULL;
   int n = sizeof(ranges)/sizeof(ranges[0]);
   for(int i = 0; i<n; i++)
     root = insert(root, ranges[i]);
+  while(1){
+    system("cls");
+    cout << "\t\tLab Assignment 3 | Question 1" << endl << endl;
+    cout << "[ _ ] Select a part:" << endl;
+    cout << "\t[ 1 ] Display inorder traversal" << endl;
+    cout << "\t[ 2 ] Insert an interval" << endl;
+    cout << "\t[ 3 ] Search for interval" << endl;
+    cout << "\t[ 4 ] Delete an interval" << endl << endl;
+    cout << "\t[ 0 ] Return" << endl;
+    cout << "[ _ ] Option: ";
+    int n;
+    cin >> n;
+    switch (n) {
+      case 0:
+        return;
+      case 1:
+        cout << "Inorder Traversal: ";
+        inorder(root);
+        break;
+      case 2:
+        cout << "Enter the lower value: ";
+        int lo;
+        cin >> lo;
+        cout << "ENter the higher value: ";
+        int up;
+        cin >> up;
+        interval ins = {lo, up};
+        root = insert(root, ins);
+        break;
+    }
+    cout << "[ = ] Done!" << endl;
+    pause();
+  }
   interval target={6,25};
   interval *container = overlap(root, target);
   cout << "Interval containing the target range {" << target.l << ", " << target.h << "} is : {" << container->l << ", " << container->h << "}." << endl;
@@ -136,16 +168,20 @@ void oneAns(){
   return;
 }
 
+/*  Answer Two  */
+
+
 /*  DRIVER FUNCTION */
 int main(){
   while(1){
     system("cls");
-    cout << "\t\tLab Assignment 2" << endl << endl;
+    cout << "\t\tLab Assignment 3" << endl << endl;
     cout << "[ _ ] Select a question:" << endl;
-    cout << "     [ - ] Question 1" << endl;
-    cout << "     [ - ] Question 2" << endl;
-    cout << "     [ - ] Question 3" << endl;
-    cout << "     [ - ] Question 4" << endl;
+    cout << "\t[ - ] Question 1" << endl;
+    cout << "\t[ - ] Question 2" << endl;
+    cout << "\t[ - ] Question 3" << endl;
+    cout << "\t[ - ] Question 4" << endl << endl;
+    cout << "\t[ 0 ] Exit" << endl;
     int n;
     cout << "[ _ ] Option: ";
     cin >> n;

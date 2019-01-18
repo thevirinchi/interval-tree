@@ -121,6 +121,37 @@ void inorder(node* root){
   inorder(root->right);
 }
 
+node* minValue(node* root){
+  while(root->left != NULL)
+    root = root->left;
+  return root;
+}
+
+node* del(node* root, interval range){
+  if(root == NULL)
+    return root;
+  if(range.l < root->i->l)
+    del(root->left, range);
+  else if(range.l > root->i->l)
+    del(root->right, range);
+  else{
+    if(root->left == NULL){
+      node* temp = root->right;
+      free(root);
+      return temp;
+    }
+    else if(root->right == NULL){
+      node* temp = root->left;
+      free(root);
+      return temp;
+    }
+    node* temp = minValue(root);
+    root->i = temp->i;
+    root = del(root->left, temp->i);
+  }
+  return root;
+}
+
 void oneAns(){
   interval ranges[] = {{17,19}, {21,24}, {30, 35}, {5, 8}, {20, 30}, {4, 8}, {24, 27}, {15, 18}, {16, 20}, {7, 10}, {28, 29}, {6, 7}};
   node* root = NULL;
@@ -138,34 +169,49 @@ void oneAns(){
     cout << "\t[ 0 ] Return" << endl;
     cout << "[ _ ] Option: ";
     int n;
+    int lo, up;
     cin >> n;
     switch (n) {
       case 0:
         return;
+        break;
       case 1:
         cout << "Inorder Traversal: ";
         inorder(root);
         break;
-      case 2:
+      case 2:{
         cout << "Enter the lower value: ";
-        int lo;
         cin >> lo;
-        cout << "ENter the higher value: ";
-        int up;
+        cout << "Enter the higher value: ";
         cin >> up;
-        interval ins = {lo, up};
-        root = insert(root, ins);
+        interval range0 = {lo, up};
+        root = insert(root, range0);
         break;
+      }
+      case 3:{
+        cout << "Inorder traversal: ";
+        inorder(root);
+        break;
+      }
+      case 4:{
+        cout << "Enter the starting of the interval: ";
+        cin >> lo;
+        cout << "Enter the ending of the interval: ";
+        cin >> up;
+        cout << "[ * ] Searching for the overlapping interval..." << endl;
+        interval target = {lo, up};
+        interval *container = overlap(root, target);
+        cout << "[ = ] Interval overlaping with the range {" << target.l << ", " << target.h << "} is: {" << container->l << ", " << container->h << "}." << endl;
+        break;
+      }
+      case 5:{
+        del();
+        break;
+      }
     }
     cout << "[ = ] Done!" << endl;
     pause();
   }
-  interval target={6,25};
-  interval *container = overlap(root, target);
-  cout << "Interval containing the target range {" << target.l << ", " << target.h << "} is : {" << container->l << ", " << container->h << "}." << endl;
-  cout << endl << "Inorder traversal of the Interval Tree: ";
-  inorder(root);
-  return;
 }
 
 /*  Answer Two  */
